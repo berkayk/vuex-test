@@ -3,8 +3,9 @@
     <h1 class="title">Add Product</h1>
     <p>{{ productCount }}</p>
     <div v-if="isAdding">Adding in progress...</div>
-    <button @click="testAddProduct">Add Async</button>
-    <button @click="testAddProductWithPromise">Add With Promise</button>
+    <input v-model="productName" placeholder="edit me">
+    <button :disabled="isAdding" @click="testAddProduct">Add Async</button>
+    <button :disabled="isAdding" @click="testAddProductWithPromise">Add With Promise</button>
   </div>
 </template>
 
@@ -16,29 +17,41 @@
     name: 'AddProduct',
     data() {
       return {
-
+        productName: ""
       }
     },
     methods: {
       testAddProduct() {
-        this.addAsync({ id: 3, name: 'Naber' });
+        let newP = {
+          id: this.productCount + 1,
+          name: this.productName,
+          created_at: new Date().getTime()
+        }
+        this.addAsync(newP);
+        this.productName = "";
         // this.add({id: 3, name: 'Selam'});
       },
       testAddProductWithPromise() {
-        this.addPromise({id: 4, name: 'Söz'}).then(() => {
+        let newP = {
+          id: this.productCount + 1,
+          name: this.productName,
+          created_at: new Date().getTime()
+        }
+        this.addPromise(newP).then(() => {
           console.log("Test Add Product completed!");
+          this.productName = "";
         });
       },
-      ...mapActions({
+      ...mapActions('products', {
         addAsync: 'addAsync', // map this.add() to this.$store.dispatch('increment'),
         addPromise: 'addWithPromise'
       })
     },
     computed: {
-      ...mapGetters({
+      ...mapGetters('products', {
         // map this.doneCount to store.getters.doneTodosCount
         productCount: 'numProducts',
-        isAdding: 'isAdding'
+        isAdding: 'isAdding',
       })
     },
   }

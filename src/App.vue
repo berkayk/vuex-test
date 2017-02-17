@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <a href="#/products">Products</a>
+    <a href="#/addProduct">Add Product</a>
     <router-view></router-view>
   </div>
 </template>
