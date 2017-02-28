@@ -1,0 +1,7 @@
+{
+  "vsicons.presets.angular": false,
+  "vsicons.associations.files": [
+  { "icon": "vue", "extensions": ["vue"], "format": "svg" }
+],
+"eslint.enable": false
+}
